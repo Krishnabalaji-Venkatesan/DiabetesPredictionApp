@@ -54,21 +54,22 @@ label {{
     margin-bottom: 2px !important;
 }}
 
-/* End-to-end Predict button inside blue box */
+/* Predict button styled same as white message box */
 div.stButton {{
     display: flex;
     justify-content: center;
+    width: 100%;
 }}
 div.stButton > button:first-child {{
-    background-color: white;   /* white button */
-    color: #1F77B4;            /* blue text */
-    height: 70px;
+    background-color: white;
+    color: #1F77B4;
+    height: 80px;              /* same height as message box */
     width: 100%;               /* full width */
     border-radius: 12px;
     font-size: 26px;
     font-weight: bold;
     margin-top: 25px;
-    border: 3px solid #1F77B4; /* blue border (box effect) */
+    border: 3px solid #1F77B4; /* blue border */
     box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
 }}
 </style>
@@ -101,13 +102,13 @@ if st.button("PREDICT"):
     # Centered probability message in styled boxes
     if result == 1:
         st.markdown(
-            f"<div style='background-color:#ffcccc; padding:15px; border-radius:10px; text-align:center; font-size:20px; font-weight:bold; color:red;'>"
+            f"<div style='background-color:#ffcccc; padding:20px; border-radius:12px; text-align:center; font-size:22px; font-weight:bold; color:red;'>"
             f"THE PERSON IS DIABETIC. PROBABILITY: {probability*100:.2f}%</div>",
             unsafe_allow_html=True
         )
     else:
         st.markdown(
-            f"<div style='background-color:white; padding:15px; border-radius:10px; text-align:center; font-size:20px; font-weight:bold; color:green;'>"
+            f"<div style='background-color:white; padding:20px; border-radius:12px; text-align:center; font-size:22px; font-weight:bold; color:green;'>"
             f"THE PERSON IS NON-DIABETIC. PROBABILITY: {(1-probability)*100:.2f}%</div>",
             unsafe_allow_html=True
         )
@@ -125,3 +126,4 @@ if st.button("PREDICT"):
     col1, col2, col3 = st.columns([1,2,1])
     with col2:
         st.pyplot(fig)
+
