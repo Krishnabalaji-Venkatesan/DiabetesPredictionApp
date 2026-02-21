@@ -39,7 +39,7 @@ div[data-baseweb="input"] input {{
     color: white !important;
     font-size: 20px;
     border-radius: 10px;
-    border: 2px solid #1F77B4;   /* same border thickness as input boxes */
+    border: 2px solid #1F77B4;
     padding: 6px;
     font-weight: bold;
     margin-top: 4px;
@@ -51,22 +51,18 @@ label {{
     text-transform: uppercase;
 }}
 
-/* Predict button styled like input boxes, end-to-end but balanced */
+/* Predict button styled like message box, end-to-end but thinner */
 div.stButton > button:first-child {{
     background-color: white;
     color: #1F77B4;
-    height: 70px;               /* balanced thickness */
+    height: 70px;               /* reduced thickness */
     width: 100%;                /* end-to-end */
-    max-width: 600px;           /* prevents it from being too broad */
     border-radius: 10px;
     font-size: 24px;
     font-weight: bold;
     margin-top: 25px;
-    border: 2px solid #1F77B4;  /* same border thickness as inputs */
+    border: 2px solid #1F77B4;  /* same border thickness as inputs/message box */
     box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
-    display: block;
-    margin-left: auto;
-    margin-right: auto;         /* center horizontally */
 }}
 </style>
 """, unsafe_allow_html=True)
@@ -87,7 +83,7 @@ with col2:
     dpf = st.number_input("DIABETES PEDIGREE FUNCTION", min_value=0.0, format="%.2f")
     pregnancies = st.number_input("PREGNANCIES", min_value=0)
 
-# Predict button (centered, end-to-end but not overly broad)
+# Predict button (end-to-end, thinner)
 if st.button("PREDICT"):
     input_data = [[pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]]
     probability = model.predict_proba(input_data)[0][1]
