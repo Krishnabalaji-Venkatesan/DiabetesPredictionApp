@@ -1,27 +1,93 @@
 import streamlit as st
 import pickle
-import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 
 # Load trained model
 model = pickle.load(open("diabetes_model.pkl", "rb"))
 
-st.title("Diabetes Prediction App")
+# Page configuration
+st.set_page_config(page_title="Diabetes Prediction App", layout="wide")
 
-# User input fields
-preg = st.number_input("Pregnancies", 0, 20)
-glu = st.number_input("Glucose", 0, 200)
-bp = st.number_input("Blood Pressure", 0, 140)
-skin = st.number_input("Skin Thickness", 0, 100)
-ins = st.number_input("Insulin", 0, 900)
-bmi = st.number_input("BMI", 0.0, 70.0)
-dpf = st.number_input("Diabetes Pedigree Function", 0.0, 2.5)
-age = st.number_input("Age", 1, 120)
+# --- CSS Styling and Background ---
+st.markdown(
+    """
+    <style>
+    /* Background image */
+    .stApp {
+        background-image: url("https://i.imgur.com/your_image_url.jpg");
+        background-size: cover;
+        background-attachment: fixed;
+        opacity: 0.95;
+    }
 
-input_data = np.array([[preg, glu, bp, skin, ins, bmi, dpf, age]])
-prediction = model.predict(input_data)
+    /* Title style */
+    .css-10trblm {
+        color: #1F77B4;
+        font-size: 40px;
+        font-weight: bold;
+    }
 
-if st.button("Predict"):
-    if prediction[0]==1:
-        st.success("The person is Diabetic")
-    else:
-        st.success("The person is Not Diabetic")
+    /* Button style */
+    div.stButton > button:first-child {
+        background-color: #1F77B4;
+        color: white;
+        height: 50px;
+        width: 200px;
+        border-radius: 10px;
+        font-size: 20px;
+    }
+
+    /* Input boxes style */
+    .stNumberInput>div>input {
+        background-color: rgba(255,255,255,0.8);
+        color: black;
+        font-size: 16px;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# --- Title ---
+st.title("Diabetes Prediction Application")
+
+# --- Input Fields in Two Columns ---
+col1, col2 = st.columns(2)
+
+with col1:
+    glucose = st.number_input("Glucose Level", min_value=0)
+    bp = st.number_input("Blood Pressure", min_value=0)
+    bmi = st.number_input("BMI", min_value=0.0, format="%.2f")
+    age = st.number_input("Age", min_value=0)
+
+with col2:
+    insulin = st.number_input("Insulin Level", min_value=0.0, format="%.2f")
+    skin_thickness = st.number_input("Skin Thickness", min_value=0)
+    dpf = st.number_input("Diabetes Pedigree Function", min_value=0.0, format="%.2f")
+    pregnancies = st.number_input("Pregnancies", min_value=0)
+
+# --- Predict Button in Center ---
+predict_col1, predict_col2, predict_col3 = st.columns([1,2,1])
+with predict_col2:
+    if st.button("Predict"):
+        input_data = [[pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]]
+        probability = model.predict_proba(input_data)[0][1]  # Probability of being diabetic
+        result = model.predict(input_data)[0]
+
+        # Display Result
+        if result == 1:
+            st.error(f"The person is Diabetic. Probability: {probability*100:.2f}%")
+        else:
+            st.success(f"The person is Non-Diabetic. Probability: {(1-probability)*100:.2f}%")
+
+        # --- Bar Chart of Parameters ---
+        param_names = ['Pregnancies','Glucose','BP','SkinThickness','Insulin','BMI','DPF','Age']
+        param_values = [pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]
+        df = pd.DataFrame({'Parameter': param_names, 'Value': param_values})
+
+        st.subheader("Health Parameters Overview")
+        fig, ax = plt.subplots(figsize=(8,4))
+        ax.bar(df['Parameter'], df['Value'], color='skyblue')
+        plt.xticks(rotation=45)
+        st.pyplot(fig)
