@@ -54,16 +54,15 @@ label {{
     margin-bottom: 2px !important;
 }}
 
-/* Predict button styled like message box, full width */
+/* Predict button styled same as message box, full width */
 div.stButton {{
-    display: flex;
-    justify-content: center;
     width: 100%;
 }}
 div.stButton > button:first-child {{
+    display: block;
     background-color: white;
     color: #1F77B4;
-    height: 90px;              /* big height */
+    height: 100px;             /* big height */
     width: 100%;               /* full width end-to-end */
     border-radius: 12px;
     font-size: 28px;
@@ -123,6 +122,5 @@ if st.button("PREDICT"):
     ax.bar(df['PARAMETER'], df['VALUE'], color='skyblue')
     ax.set_xticklabels(df['PARAMETER'], rotation=30, ha='right', fontsize=12)
     plt.tight_layout()
-    col1, col2, col3 = st.columns([1,2,1])
-    with col2:
-        st.pyplot(fig)
+    st.pyplot(fig)
+
