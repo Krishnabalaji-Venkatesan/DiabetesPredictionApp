@@ -9,7 +9,7 @@ model = pickle.load(open("diabetes_model.pkl", "rb"))
 # Page configuration
 st.set_page_config(page_title="DIABETES PREDICTION APP", layout="wide")
 
-# Background image from GitHub
+# Background image
 background_url = "https://raw.githubusercontent.com/Krishnabalaji-Venkatesan/DiabetesPredictionApp/refs/heads/main/diabetes.jpg"
 
 # CSS Styling
@@ -27,18 +27,18 @@ st.markdown(
     div[data-baseweb="input"] input {{
         background: #000000 !important;  
         color: white !important;
-        font-size: 20px;
+        font-size: 24px;
         border-radius: 12px !important;
         border: 1px solid rgba(255,255,255,0.7);
         padding: 8px;
         font-weight: bold;
     }}
 
-    /* Input labels bigger and thick */
+    /* Input labels same size as numbers and thick */
     label {{
         color: black !important;
-        font-weight: 900;
-        font-size: 22px;
+        font-weight: bold;
+        font-size: 24px;
         text-transform: uppercase;
     }}
 
@@ -64,7 +64,7 @@ st.markdown(
         justify-content: center;
     }}
     div.stButton > button:first-child {{
-        background-color: #1F77B4;  /* Blue color */
+        background-color: #1F77B4;  
         color: white;
         height: 55px;
         width: 240px;
@@ -99,7 +99,7 @@ with col2:
     dpf = st.number_input("DIABETES PEDIGREE FUNCTION", min_value=0.0, format="%.2f")
     pregnancies = st.number_input("PREGNANCIES", min_value=0)
 
-# Centered Predict button using columns
+# Centered Predict button
 predict_col1, predict_col2, predict_col3 = st.columns([1,2,1])
 with predict_col2:
     if st.button("PREDICT"):
@@ -112,7 +112,7 @@ with predict_col2:
         else:
             st.success(f"THE PERSON IS NON-DIABETIC. PROBABILITY: {(1-probability)*100:.2f}%")
 
-        # Bar chart of input parameters
+        # Bar chart
         param_names = ['PREGNANCIES','GLUCOSE','BP','SKIN THICKNESS','INSULIN','BMI','DPF','AGE']
         param_values = [pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]
         df = pd.DataFrame({'PARAMETER': param_names, 'VALUE': param_values})
