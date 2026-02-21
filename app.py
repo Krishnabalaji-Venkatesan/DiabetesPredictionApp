@@ -3,62 +3,22 @@ import pickle
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Load trained model
+# Load model
 model = pickle.load(open("diabetes_model.pkl", "rb"))
 
-# Page configuration
 st.set_page_config(page_title="DIABETES PREDICTION APP", layout="wide")
 
-# Background image
 background_url = "https://raw.githubusercontent.com/Krishnabalaji-Venkatesan/DiabetesPredictionApp/refs/heads/main/diabetes.jpg"
 
-# CSS Styling
+# CSS for background and Predict button
 st.markdown(
     f"""
     <style>
-    /* Background image */
     .stApp {{
         background-image: url("{background_url}");
         background-size: cover;
         background-attachment: fixed;
     }}
-
-    /* Black input boxes with white numbers */
-    div[data-baseweb="input"] input {{
-        background: #000000 !important;  
-        color: white !important;
-        font-size: 24px;
-        border-radius: 12px !important;
-        border: 1px solid rgba(255,255,255,0.7);
-        padding: 8px;
-        font-weight: bold;
-    }}
-
-    /* Force input labels to same size as input numbers */
-    div[data-baseweb="input"] > label {{
-        font-size: 24px !important;
-        font-weight: bold !important;
-        color: black !important;
-        text-transform: uppercase;
-    }}
-
-    /* Spinner buttons (+/-) match input box color */
-    input::-webkit-inner-spin-button,
-    input::-webkit-outer-spin-button {{
-        -webkit-appearance: none;
-        margin: 0;
-        background: #000000;
-        color: white;
-    }}
-    input::-moz-inner-spin-button,
-    input::-moz-outer-spin-button {{
-        appearance: none;
-        margin: 0;
-        background: #000000;
-        color: white;
-    }}
-
-    /* Centered Predict button in blue */
     div.stButton {{
         display: flex;
         justify-content: center;
@@ -78,9 +38,9 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Centered Title
+# Centered title
 st.markdown(
-    '<h1 style="text-align:center; color:#1F77B4; font-weight:bold; font-size:48px; text-transform:uppercase;">DIABETES PREDICTION APPLICATION</h1>',
+    '<h1 style="text-align:center; color:#1F77B4; font-weight:bold; font-size:48px;">DIABETES PREDICTION APPLICATION</h1>',
     unsafe_allow_html=True
 )
 
@@ -88,20 +48,34 @@ st.markdown(
 col1, col2 = st.columns(2)
 
 with col1:
-    glucose = st.number_input("GLUCOSE LEVEL", min_value=0)
-    bp = st.number_input("BLOOD PRESSURE", min_value=0)
-    bmi = st.number_input("BMI", min_value=0.0, format="%.2f")
-    age = st.number_input("AGE", min_value=0)
+    st.markdown('<p style="font-size:24px; font-weight:bold; color:black;">GLUCOSE LEVEL</p>', unsafe_allow_html=True)
+    glucose = st.number_input("", min_value=0, key="glucose", step=1, format="%d")
+    
+    st.markdown('<p style="font-size:24px; font-weight:bold; color:black;">BLOOD PRESSURE</p>', unsafe_allow_html=True)
+    bp = st.number_input("", min_value=0, key="bp", step=1, format="%d")
+    
+    st.markdown('<p style="font-size:24px; font-weight:bold; color:black;">BMI</p>', unsafe_allow_html=True)
+    bmi = st.number_input("", min_value=0.0, key="bmi", format="%.2f")
+    
+    st.markdown('<p style="font-size:24px; font-weight:bold; color:black;">AGE</p>', unsafe_allow_html=True)
+    age = st.number_input("", min_value=0, key="age", step=1)
 
 with col2:
-    insulin = st.number_input("INSULIN LEVEL", min_value=0.0, format="%.2f")
-    skin_thickness = st.number_input("SKIN THICKNESS", min_value=0)
-    dpf = st.number_input("DIABETES PEDIGREE FUNCTION", min_value=0.0, format="%.2f")
-    pregnancies = st.number_input("PREGNANCIES", min_value=0)
+    st.markdown('<p style="font-size:24px; font-weight:bold; color:black;">INSULIN LEVEL</p>', unsafe_allow_html=True)
+    insulin = st.number_input("", min_value=0.0, key="insulin", format="%.2f")
+    
+    st.markdown('<p style="font-size:24px; font-weight:bold; color:black;">SKIN THICKNESS</p>', unsafe_allow_html=True)
+    skin_thickness = st.number_input("", min_value=0, key="skin", step=1)
+    
+    st.markdown('<p style="font-size:24px; font-weight:bold; color:black;">DIABETES PEDIGREE FUNCTION</p>', unsafe_allow_html=True)
+    dpf = st.number_input("", min_value=0.0, key="dpf", format="%.2f")
+    
+    st.markdown('<p style="font-size:24px; font-weight:bold; color:black;">PREGNANCIES</p>', unsafe_allow_html=True)
+    pregnancies = st.number_input("", min_value=0, key="pregnancies", step=1)
 
 # Centered Predict button
-predict_col1, predict_col2, predict_col3 = st.columns([1,2,1])
-with predict_col2:
+col1, col2, col3 = st.columns([1,2,1])
+with col2:
     if st.button("PREDICT"):
         input_data = [[pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]]
         probability = model.predict_proba(input_data)[0][1]
@@ -122,3 +96,4 @@ with predict_col2:
         ax.bar(df['PARAMETER'], df['VALUE'], color='skyblue')
         plt.xticks(rotation=45)
         st.pyplot(fig)
+        
