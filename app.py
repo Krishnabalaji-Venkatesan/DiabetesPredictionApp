@@ -39,8 +39,16 @@ st.markdown(
         color: black;
         font-size: 18px;
         border-radius: 8px;
-        box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+        box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
         padding: 6px;
+        border: none;
+    }}
+
+    /* Remove dark shading from +/- controls */
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {{
+        -webkit-appearance: none;
+        margin: 0;
     }}
 
     /* Input labels in uppercase + black + bigger size */
@@ -51,7 +59,11 @@ st.markdown(
         text-transform: uppercase;
     }}
 
-    /* Center Predict button */
+    /* Center Predict button with flexbox */
+    div.stButton {{
+        display: flex;
+        justify-content: center;
+    }}
     div.stButton > button:first-child {{
         background-color: #1F77B4;
         color: white;
@@ -59,9 +71,6 @@ st.markdown(
         width: 240px;
         border-radius: 10px;
         font-size: 22px;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
         margin-top: 25px;
         box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
     }}
