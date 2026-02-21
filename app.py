@@ -51,18 +51,18 @@ label {{
     text-transform: uppercase;
 }}
 
-/* Predict button styled like message box, end-to-end but thinner */
+/* Predict button styled like input boxes, spanning both columns */
 div.stButton > button:first-child {{
     background-color: white;
     color: #1F77B4;
-    height: 70px;               /* reduced thickness */
-    width: 100%;                /* end-to-end */
+    height: 50px;               /* same vertical thickness as input boxes */
+    width: 100%;                /* spans across both columns */
     border-radius: 10px;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: bold;
-    margin-top: 25px;
-    border: 2px solid #1F77B4;  /* same border thickness as inputs/message box */
-    box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+    margin-top: 20px;
+    border: 2px solid #1F77B4;  /* same border thickness as inputs */
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
 }}
 </style>
 """, unsafe_allow_html=True)
@@ -83,7 +83,7 @@ with col2:
     dpf = st.number_input("DIABETES PEDIGREE FUNCTION", min_value=0.0, format="%.2f")
     pregnancies = st.number_input("PREGNANCIES", min_value=0)
 
-# Predict button (end-to-end, thinner)
+# Predict button (aligned with input boxes, spanning both columns)
 if st.button("PREDICT"):
     input_data = [[pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]]
     probability = model.predict_proba(input_data)[0][1]
