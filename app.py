@@ -34,11 +34,11 @@ st.markdown(
         font-weight: bold;
     }}
 
-    /* Input labels same size as numbers and thick */
-    label {{
+    /* Force input labels to same size as input numbers */
+    div[data-baseweb="input"] > label {{
+        font-size: 24px !important;
+        font-weight: bold !important;
         color: black !important;
-        font-weight: bold;
-        font-size: 24px;
         text-transform: uppercase;
     }}
 
