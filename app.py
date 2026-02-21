@@ -6,53 +6,49 @@ import matplotlib.pyplot as plt
 # Load trained model
 model = pickle.load(open("diabetes_model.pkl", "rb"))
 
-# Page configuration
+# Page config
 st.set_page_config(page_title="Diabetes Prediction App", layout="wide")
 
-# --- CSS Styling and Background ---
+# Background image and CSS
+background_url = "https://https://www.freepik.com/free-photo/top-view-glucose-measuring-device-diabetes_65609449.htm#fromView=search&page=1&position=37&uuid=a2a5ad31-db08-4433-96a0-b8f2bc1a840d&query=Diabetes+prediction+background.jpg"
+
 st.markdown(
-    """
+    f"""
     <style>
-    /* Background image */
-    .stApp {
-        background-image: url("https://www.freepik.com/free-photo/top-view-glucose-measuring-device-diabetes_65609449.htm#fromView=search&page=1&position=37&uuid=a2a5ad31-db08-4433-96a0-b8f2bc1a840d&query=Diabetes+prediction+background.jpg");
+    .stApp {{
+        background-image: url("{background_url}");
         background-size: cover;
         background-attachment: fixed;
-        opacity: 0.95;
-    }
-
-    /* Title style */
-    .css-10trblm {
+    }}
+    .css-10trblm {{
+        text-align: center;
         color: #1F77B4;
-        font-size: 40px;
+        font-size: 42px;
         font-weight: bold;
-    }
-
-    /* Button style */
-    div.stButton > button:first-child {
+    }}
+    .stNumberInput>div>input {{
+        background-color: rgba(255,255,255,0.85);
+        color: black;
+        font-size: 16px;
+    }}
+    div.stButton > button:first-child {{
         background-color: #1F77B4;
         color: white;
         height: 50px;
-        width: 200px;
+        width: 220px;
         border-radius: 10px;
         font-size: 20px;
-    }
-
-    /* Input boxes style */
-    .stNumberInput>div>input {
-        background-color: rgba(255,255,255,0.8);
-        color: black;
-        font-size: 16px;
-    }
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }}
     </style>
     """,
     unsafe_allow_html=True
 )
 
-# --- Title ---
 st.title("Diabetes Prediction Application")
 
-# --- Input Fields in Two Columns ---
 col1, col2 = st.columns(2)
 
 with col1:
@@ -67,29 +63,23 @@ with col2:
     dpf = st.number_input("Diabetes Pedigree Function", min_value=0.0, format="%.2f")
     pregnancies = st.number_input("Pregnancies", min_value=0)
 
-# --- Predict Button in Center ---
-predict_col1, predict_col2, predict_col3 = st.columns([1,2,1])
-with predict_col2:
-    if st.button("Predict"):
-        input_data = [[pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]]
-        probability = model.predict_proba(input_data)[0][1]  # Probability of being diabetic
-        result = model.predict(input_data)[0]
+if st.button("Predict"):
+    input_data = [[pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]]
+    probability = model.predict_proba(input_data)[0][1]
+    result = model.predict(input_data)[0]
 
-        # Display Result
-        if result == 1:
-            st.error(f"The person is Diabetic. Probability: {probability*100:.2f}%")
-        else:
-            st.success(f"The person is Non-Diabetic. Probability: {(1-probability)*100:.2f}%")
+    if result == 1:
+        st.error(f"The person is Diabetic. Probability: {probability*100:.2f}%")
+    else:
+        st.success(f"The person is Non-Diabetic. Probability: {(1-probability)*100:.2f}%")
 
-        # --- Bar Chart of Parameters ---
-        param_names = ['Pregnancies','Glucose','BP','SkinThickness','Insulin','BMI','DPF','Age']
-        param_values = [pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]
-        df = pd.DataFrame({'Parameter': param_names, 'Value': param_values})
+    param_names = ['Pregnancies','Glucose','BP','SkinThickness','Insulin','BMI','DPF','Age']
+    param_values = [pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]
+    df = pd.DataFrame({'Parameter': param_names, 'Value': param_values})
 
-        st.subheader("Health Parameters Overview")
-        fig, ax = plt.subplots(figsize=(8,4))
-        ax.bar(df['Parameter'], df['Value'], color='skyblue')
-        plt.xticks(rotation=45)
-        st.pyplot(fig)
-
+    st.subheader("Health Parameters Overview")
+    fig, ax = plt.subplots(figsize=(8,4))
+    ax.bar(df['Parameter'], df['Value'], color='skyblue')
+    plt.xticks(rotation=45)
+    st.pyplot(fig)
 
