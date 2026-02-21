@@ -107,7 +107,7 @@ if st.button("PREDICT"):
     df = pd.DataFrame({'PARAMETER': param_names, 'VALUE': param_values})
 
     st.subheader("HEALTH PARAMETERS OVERVIEW")
-    fig, ax = plt.subplots(figsize=(4,2.5))   # smaller graph size
+    fig, ax = plt.subplots(figsize=(3.5,2))   # smaller graph size
     ax.bar(df['PARAMETER'], df['VALUE'], color='skyblue')
     plt.xticks(rotation=45)
     st.pyplot(fig)
