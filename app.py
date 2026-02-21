@@ -3,13 +3,13 @@ import pickle
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Load model
+# Load trained model
 model = pickle.load(open("diabetes_model.pkl", "rb"))
 
 # Page configuration
 st.set_page_config(page_title="DIABETES PREDICTION APP", layout="wide")
 
-# Background image
+# Background image from GitHub
 background_url = "https://raw.githubusercontent.com/Krishnabalaji-Venkatesan/DiabetesPredictionApp/refs/heads/main/diabetes.jpg"
 
 # CSS Styling
@@ -23,44 +23,51 @@ st.markdown(
         background-attachment: fixed;
     }}
 
-    /* Title styling: bold + blue + uppercase */
+    /* Center the title using flexbox */
+    .stTitleContainer {{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }}
     .stTitle {{
-        text-align: center;
-        color: #1F77B4;   /* EXACT same blue as Predict button */
+        color: #1F77B4;   /* Same as Predict button */
         font-size: 48px;
         font-weight: bold;
         text-transform: uppercase;
         margin-bottom: 30px;
+        text-align: center;
     }}
 
-    /* Glassmorphism input boxes */
+    /* Transparent input boxes */
     input[type="number"] {{
-        background: rgba(255, 255, 255, 0.1); /* very transparent */
-        backdrop-filter: blur(6px);            /* blur background behind box */
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(6px);            
         -webkit-backdrop-filter: blur(6px);
         color: black;
         font-size: 18px;
         border-radius: 12px;
         border: 1px solid rgba(255,255,255,0.3);
-        box-shadow: 2px 2px 10px rgba(0,0,0,0.25);
+        box-shadow: none;
         padding: 8px;
     }}
 
-    /* Remove dark shading from +/- spinner controls */
+    /* Remove +/- spinners background */
     input[type=number]::-webkit-inner-spin-button,
     input[type=number]::-webkit-outer-spin-button {{
         -webkit-appearance: none;
-        background: transparent;
+        background: rgba(255, 255, 255, 0.05);
         margin: 0;
+        color: black;
     }}
     input[type=number]::-moz-inner-spin-button,
     input[type=number]::-moz-outer-spin-button {{
         appearance: none;
-        background: transparent;
+        background: rgba(255, 255, 255, 0.05);
         margin: 0;
+        color: black;
     }}
 
-    /* Input labels in uppercase + black + bigger size */
+    /* Input labels */
     label {{
         color: black !important;
         font-weight: bold;
@@ -68,7 +75,7 @@ st.markdown(
         text-transform: uppercase;
     }}
 
-    /* Center Predict button with flexbox */
+    /* Center Predict button */
     div.stButton {{
         display: flex;
         justify-content: center;
@@ -89,9 +96,9 @@ st.markdown(
 )
 
 # Centered Title
-st.markdown('<h1 class="stTitle">DIABETES PREDICTION APPLICATION</h1>', unsafe_allow_html=True)
+st.markdown('<div class="stTitleContainer"><h1 class="stTitle">DIABETES PREDICTION APPLICATION</h1></div>', unsafe_allow_html=True)
 
-# Two input columns
+# Input columns
 col1, col2 = st.columns(2)
 
 with col1:
@@ -106,7 +113,7 @@ with col2:
     dpf = st.number_input("DIABETES PEDIGREE FUNCTION", min_value=0.0, format="%.2f")
     pregnancies = st.number_input("PREGNANCIES", min_value=0)
 
-# Predict button
+# Centered Predict button
 if st.button("PREDICT"):
     input_data = [[pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]]
     probability = model.predict_proba(input_data)[0][1]
