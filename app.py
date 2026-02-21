@@ -15,7 +15,7 @@ st.markdown(
     <style>
     /* Background image */
     .stApp {
-        background-image: url("https://diabetes.jpg");
+        background-image: url("https://www.freepik.com/free-photo/top-view-glucose-measuring-device-diabetes_65609449.htm#fromView=search&page=1&position=37&uuid=a2a5ad31-db08-4433-96a0-b8f2bc1a840d&query=Diabetes+prediction+background.jpg");
         background-size: cover;
         background-attachment: fixed;
         opacity: 0.95;
@@ -91,4 +91,5 @@ with predict_col2:
         ax.bar(df['Parameter'], df['Value'], color='skyblue')
         plt.xticks(rotation=45)
         st.pyplot(fig)
+
 
