@@ -9,7 +9,7 @@ model = pickle.load(open("diabetes_model.pkl", "rb"))
 # Page configuration
 st.set_page_config(page_title="DIABETES PREDICTION APP", layout="wide")
 
-# Background image from GitHub raw link
+# Background image
 background_url = "https://raw.githubusercontent.com/Krishnabalaji-Venkatesan/DiabetesPredictionApp/main/diabetes.jpg"
 
 # CSS Styling
@@ -31,7 +31,7 @@ st.markdown(f"""
     margin-bottom: 30px;
 }}
 
-/* Input box styling with glass effect */
+/* Input box styling */
 div[data-baseweb="input"] input {{
     background: rgba(255,255,255,0.15);
     backdrop-filter: blur(6px);
@@ -54,7 +54,7 @@ label {{
     margin-bottom: 2px !important;
 }}
 
-/* Predict button styled same as white message box */
+/* Predict button styled like message box, full width */
 div.stButton {{
     display: flex;
     justify-content: center;
@@ -63,14 +63,14 @@ div.stButton {{
 div.stButton > button:first-child {{
     background-color: white;
     color: #1F77B4;
-    height: 80px;              /* same height as message box */
-    width: 100%;               /* full width */
+    height: 90px;              /* big height */
+    width: 100%;               /* full width end-to-end */
     border-radius: 12px;
-    font-size: 26px;
+    font-size: 28px;
     font-weight: bold;
     margin-top: 25px;
-    border: 3px solid #1F77B4; /* blue border */
-    box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+    border: 3px solid #1F77B4;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.4);
 }}
 </style>
 """, unsafe_allow_html=True)
@@ -126,4 +126,3 @@ if st.button("PREDICT"):
     col1, col2, col3 = st.columns([1,2,1])
     with col2:
         st.pyplot(fig)
-
