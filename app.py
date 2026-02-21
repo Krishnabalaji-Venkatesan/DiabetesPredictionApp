@@ -36,7 +36,7 @@ div[data-baseweb="input"] input {{
     background: rgba(255,255,255,0.15);  /* transparent glass effect */
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
-    color: black !important;
+    color: white !important;   /* numbers in white */
     font-size: 20px;
     border-radius: 10px;
     border: 1px solid rgba(255,255,255,0.4);
@@ -47,7 +47,7 @@ div[data-baseweb="input"] input {{
 
 /* Labels */
 label {{
-    color: black !important;
+    color: white !important;   /* labels in white */
     font-weight: bold;
     font-size: 18px;
     text-transform: uppercase;
@@ -107,9 +107,10 @@ if st.button("PREDICT"):
     df = pd.DataFrame({'PARAMETER': param_names, 'VALUE': param_values})
 
     st.subheader("HEALTH PARAMETERS OVERVIEW")
-    fig, ax = plt.subplots(figsize=(5,3))   # smaller graph size
+    fig, ax = plt.subplots(figsize=(4,2.5))   # smaller graph size
     ax.bar(df['PARAMETER'], df['VALUE'], color='skyblue')
     plt.xticks(rotation=45)
     st.pyplot(fig)
+
 
 
