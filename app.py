@@ -110,3 +110,4 @@ if st.button("PREDICT"):
     plt.xticks(rotation=45)
     st.pyplot(fig)
 
+
