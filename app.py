@@ -99,9 +99,17 @@ if st.button("PREDICT"):
 
     # Centered probability message
     if result == 1:
-        st.markdown(f"<h4 style='text-align:center; color:red;'>THE PERSON IS DIABETIC. PROBABILITY: {probability*100:.2f}%</h4>", unsafe_allow_html=True)
+        st.markdown(
+            f"<div style='background-color:#ffcccc; padding:15px; border-radius:10px; text-align:center; font-size:20px; font-weight:bold; color:red;'>"
+            f"THE PERSON IS DIABETIC. PROBABILITY: {probability*100:.2f}%</div>",
+            unsafe_allow_html=True
+        )
     else:
-        st.markdown(f"<h4 style='text-align:center; color:green;'>THE PERSON IS NON-DIABETIC. PROBABILITY: {(1-probability)*100:.2f}%</h4>", unsafe_allow_html=True)
+        st.markdown(
+            f"<div style='background-color:white; padding:15px; border-radius:10px; text-align:center; font-size:20px; font-weight:bold; color:green;'>"
+            f"THE PERSON IS NON-DIABETIC. PROBABILITY: {(1-probability)*100:.2f}%</div>",
+            unsafe_allow_html=True
+        )
 
     # Bigger bar chart, centered
     param_names = ['PREGNANCIES','GLUCOSE','BP','SKIN THICKNESS','INSULIN','BMI','DPF','AGE']
@@ -109,7 +117,7 @@ if st.button("PREDICT"):
     df = pd.DataFrame({'PARAMETER': param_names, 'VALUE': param_values})
 
     st.markdown("<h3 style='text-align:center; color:white;'>HEALTH PARAMETERS OVERVIEW</h3>", unsafe_allow_html=True)
-    fig, ax = plt.subplots(figsize=(12,6))   # much bigger graph (tab size)
+    fig, ax = plt.subplots(figsize=(12,6))   # large tab-size graph
     ax.bar(df['PARAMETER'], df['VALUE'], color='skyblue')
     ax.set_xticklabels(df['PARAMETER'], rotation=30, ha='right', fontsize=12)
     plt.tight_layout()
