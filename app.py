@@ -9,7 +9,7 @@ model = pickle.load(open("diabetes_model.pkl", "rb"))
 # Page configuration
 st.set_page_config(page_title="Diabetes Prediction App", layout="wide")
 
-# Background image from GitHub
+# Background image
 background_url = "https://raw.githubusercontent.com/Krishnabalaji-Venkatesan/DiabetesPredictionApp/refs/heads/main/diabetes.jpg"
 
 # CSS Styling
@@ -23,29 +23,29 @@ st.markdown(
         background-attachment: fixed;
     }}
 
-    /* Center the title */
+    /* Title styling: bold + black */
     .stTitle {{
         text-align: center;
-        color: #1F77B4;
+        color: black;
         font-size: 42px;
         font-weight: bold;
         margin-bottom: 20px;
     }}
 
-    /* Input boxes transparent with black text */
+    /* Transparent input boxes with black text */
     .stNumberInput>div>div>input {{
-        background-color: rgba(255, 255, 255, 0.6);
+        background-color: rgba(255, 255, 255, 0.5);
         color: black;
         font-size: 16px;
     }}
 
-    /* Input labels black */
+    /* Input labels in black */
     label {{
         color: black;
         font-weight: bold;
     }}
 
-    /* Center the Predict button */
+    /* Center Predict button */
     div.stButton > button:first-child {{
         background-color: #1F77B4;
         color: white;
@@ -81,7 +81,7 @@ with col2:
     dpf = st.number_input("Diabetes Pedigree Function", min_value=0.0, format="%.2f")
     pregnancies = st.number_input("Pregnancies", min_value=0)
 
-# Centered Predict button
+# Predict button
 if st.button("Predict"):
     input_data = [[pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]]
     probability = model.predict_proba(input_data)[0][1]
