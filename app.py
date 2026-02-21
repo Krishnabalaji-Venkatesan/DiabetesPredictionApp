@@ -33,13 +33,14 @@ st.markdown(
         margin-bottom: 30px;
     }}
 
-    /* Much more transparent input boxes with shadow + black text */
-    .stNumberInput>div>div>input {{
-        background-color: rgba(255, 255, 255, 0.15); /* 15% opacity */
+    /* Transparent input boxes with shadow + black text */
+    input[type="number"] {{
+        background-color: rgba(255, 255, 255, 0.1); /* very transparent */
         color: black;
         font-size: 18px;
         border-radius: 8px;
         box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+        padding: 6px;
     }}
 
     /* Input labels in uppercase + black + bigger size */
@@ -108,4 +109,3 @@ if st.button("PREDICT"):
     ax.bar(df['PARAMETER'], df['VALUE'], color='skyblue')
     plt.xticks(rotation=45)
     st.pyplot(fig)
-
