@@ -23,23 +23,23 @@ st.markdown(
         background-attachment: fixed;
     }}
 
-    /* Title styling: bold + black + uppercase */
+    /* Title styling: bold + blue + uppercase */
     .stTitle {{
         text-align: center;
-        color: black;
+        color: #1F77B4;   /* Same blue as Predict button */
         font-size: 48px;
         font-weight: bold;
         text-transform: uppercase;
         margin-bottom: 30px;
     }}
 
-    /* Transparent input boxes with shadow + black text */
+    /* Much more transparent input boxes with shadow + black text */
     .stNumberInput>div>div>input {{
-        background-color: rgba(255, 255, 255, 0.4);
+        background-color: rgba(255, 255, 255, 0.15); /* 15% opacity */
         color: black;
         font-size: 18px;
         border-radius: 8px;
-        box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+        box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
     }}
 
     /* Input labels in uppercase + black + bigger size */
@@ -108,3 +108,4 @@ if st.button("PREDICT"):
     ax.bar(df['PARAMETER'], df['VALUE'], color='skyblue')
     plt.xticks(rotation=45)
     st.pyplot(fig)
+
