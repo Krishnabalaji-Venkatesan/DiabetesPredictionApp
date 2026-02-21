@@ -6,11 +6,13 @@ import matplotlib.pyplot as plt
 # Load model
 model = pickle.load(open("diabetes_model.pkl", "rb"))
 
+# Page setup
 st.set_page_config(page_title="DIABETES PREDICTION APP", layout="wide")
 
+# Background image
 background_url = "https://raw.githubusercontent.com/Krishnabalaji-Venkatesan/DiabetesPredictionApp/refs/heads/main/diabetes.jpg"
 
-# CSS Styling
+# CSS styling
 st.markdown(f"""
 <style>
 .stApp {{
@@ -19,31 +21,42 @@ st.markdown(f"""
     background-attachment: fixed;
 }}
 
-/* Title styling */
+/* Centered title styling */
 .stTitle {{
     text-align: center;
-    color: #1F77B4;   /* EXACT same blue as Predict button */
+    color: #1F77B4;
     font-weight: bold;
     font-size: 48px;
     text-transform: uppercase;
     margin-bottom: 30px;
 }}
 
-/* Input box styling */
+/* Full black input boxes with white numbers */
 div[data-baseweb="input"] input {{
-    background: rgba(255,255,255,0.15);  /* transparent glass effect */
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    color: black !important;
+    background-color: #000000 !important;
+    color: white !important;
     font-size: 20px;
-    border-radius: 10px;
-    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 8px !important;
+    border: 1px solid rgba(255,255,255,0.7);
     padding: 6px;
     font-weight: bold;
     margin-top: 4px;
 }}
 
-/* Labels */
+/* Remove +/- spinner color differences */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {{
+    -webkit-appearance: none;
+    margin: 0;
+    background: black;
+}}
+input[type=number]::-moz-inner-spin-button,
+input[type=number]::-moz-outer-spin-button {{
+    appearance: none;
+    background: black;
+}}
+
+/* Labels above inputs */
 label {{
     color: black !important;
     font-weight: bold;
@@ -73,7 +86,7 @@ div.stButton > button:first-child {{
 # Title
 st.markdown('<h1 class="stTitle">DIABETES PREDICTION APPLICATION</h1>', unsafe_allow_html=True)
 
-# Two columns
+# Input columns
 col1, col2 = st.columns(2)
 
 with col1:
@@ -88,7 +101,7 @@ with col2:
     dpf = st.number_input("DIABETES PEDIGREE FUNCTION", min_value=0.0, format="%.2f")
     pregnancies = st.number_input("PREGNANCIES", min_value=0)
 
-# Predict button
+# Centered Predict button
 if st.button("PREDICT"):
     input_data = [[pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]]
     probability = model.predict_proba(input_data)[0][1]
@@ -99,7 +112,7 @@ if st.button("PREDICT"):
     else:
         st.success(f"THE PERSON IS NON-DIABETIC. PROBABILITY: {(1-probability)*100:.2f}%")
 
-    # Bar chart
+    # Bar chart of inputs
     param_names = ['PREGNANCIES','GLUCOSE','BP','SKIN THICKNESS','INSULIN','BMI','DPF','AGE']
     param_values = [pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]
     df = pd.DataFrame({'PARAMETER': param_names, 'VALUE': param_values})
