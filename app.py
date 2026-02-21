@@ -12,7 +12,7 @@ st.set_page_config(page_title="DIABETES PREDICTION APP", layout="wide")
 # Background image from GitHub
 background_url = "https://raw.githubusercontent.com/Krishnabalaji-Venkatesan/DiabetesPredictionApp/refs/heads/main/diabetes.jpg"
 
-# CSS Styling
+# Apply CSS
 st.markdown(
     f"""
     <style>
@@ -23,48 +23,14 @@ st.markdown(
         background-attachment: fixed;
     }}
 
-    /* Center the title using flexbox */
-    .stTitleContainer {{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }}
-    .stTitle {{
-        color: #1F77B4;   /* Same as Predict button */
-        font-size: 48px;
-        font-weight: bold;
-        text-transform: uppercase;
-        margin-bottom: 30px;
-        text-align: center;
-    }}
-
-    /* Transparent input boxes */
-    input[type="number"] {{
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(6px);            
-        -webkit-backdrop-filter: blur(6px);
-        color: black;
+    /* Transparent input boxes (works in Streamlit 1.30+) */
+    div[data-baseweb="input"] input {{
+        background: rgba(255,255,255,0.05) !important;
+        color: black !important;
         font-size: 18px;
-        border-radius: 12px;
+        border-radius: 12px !important;
         border: 1px solid rgba(255,255,255,0.3);
-        box-shadow: none;
         padding: 8px;
-    }}
-
-    /* Remove +/- spinners background */
-    input[type=number]::-webkit-inner-spin-button,
-    input[type=number]::-webkit-outer-spin-button {{
-        -webkit-appearance: none;
-        background: rgba(255, 255, 255, 0.05);
-        margin: 0;
-        color: black;
-    }}
-    input[type=number]::-moz-inner-spin-button,
-    input[type=number]::-moz-outer-spin-button {{
-        appearance: none;
-        background: rgba(255, 255, 255, 0.05);
-        margin: 0;
-        color: black;
     }}
 
     /* Input labels */
@@ -75,20 +41,20 @@ st.markdown(
         text-transform: uppercase;
     }}
 
-    /* Center Predict button */
-    div.stButton {{
-        display: flex;
-        justify-content: center;
+    /* Remove spinner buttons background */
+    input::-webkit-inner-spin-button,
+    input::-webkit-outer-spin-button {{
+        -webkit-appearance: none;
+        margin: 0;
+        background: rgba(255,255,255,0.05);
+        color: black;
     }}
-    div.stButton > button:first-child {{
-        background-color: #1F77B4;
-        color: white;
-        height: 55px;
-        width: 240px;
-        border-radius: 10px;
-        font-size: 22px;
-        margin-top: 25px;
-        box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+    input::-moz-inner-spin-button,
+    input::-moz-outer-spin-button {{
+        appearance: none;
+        margin: 0;
+        background: rgba(255,255,255,0.05);
+        color: black;
     }}
     </style>
     """,
@@ -96,7 +62,7 @@ st.markdown(
 )
 
 # Centered Title
-st.markdown('<div class="stTitleContainer"><h1 class="stTitle">DIABETES PREDICTION APPLICATION</h1></div>', unsafe_allow_html=True)
+st.markdown('<h1 style="text-align:center; color:#1F77B4; font-weight:bold; font-size:48px; text-transform:uppercase;">DIABETES PREDICTION APPLICATION</h1>', unsafe_allow_html=True)
 
 # Input columns
 col1, col2 = st.columns(2)
@@ -113,24 +79,26 @@ with col2:
     dpf = st.number_input("DIABETES PEDIGREE FUNCTION", min_value=0.0, format="%.2f")
     pregnancies = st.number_input("PREGNANCIES", min_value=0)
 
-# Centered Predict button
-if st.button("PREDICT"):
-    input_data = [[pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]]
-    probability = model.predict_proba(input_data)[0][1]
-    result = model.predict(input_data)[0]
+# Center Predict button using columns
+predict_col1, predict_col2, predict_col3 = st.columns([1,2,1])
+with predict_col2:
+    if st.button("PREDICT"):
+        input_data = [[pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]]
+        probability = model.predict_proba(input_data)[0][1]
+        result = model.predict(input_data)[0]
 
-    if result == 1:
-        st.error(f"THE PERSON IS DIABETIC. PROBABILITY: {probability*100:.2f}%")
-    else:
-        st.success(f"THE PERSON IS NON-DIABETIC. PROBABILITY: {(1-probability)*100:.2f}%")
+        if result == 1:
+            st.error(f"THE PERSON IS DIABETIC. PROBABILITY: {probability*100:.2f}%")
+        else:
+            st.success(f"THE PERSON IS NON-DIABETIC. PROBABILITY: {(1-probability)*100:.2f}%")
 
-    # Bar chart of input parameters
-    param_names = ['PREGNANCIES','GLUCOSE','BP','SKIN THICKNESS','INSULIN','BMI','DPF','AGE']
-    param_values = [pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]
-    df = pd.DataFrame({'PARAMETER': param_names, 'VALUE': param_values})
+        # Bar chart of input parameters
+        param_names = ['PREGNANCIES','GLUCOSE','BP','SKIN THICKNESS','INSULIN','BMI','DPF','AGE']
+        param_values = [pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]
+        df = pd.DataFrame({'PARAMETER': param_names, 'VALUE': param_values})
 
-    st.subheader("HEALTH PARAMETERS OVERVIEW")
-    fig, ax = plt.subplots(figsize=(8,4))
-    ax.bar(df['PARAMETER'], df['VALUE'], color='skyblue')
-    plt.xticks(rotation=45)
-    st.pyplot(fig)
+        st.subheader("HEALTH PARAMETERS OVERVIEW")
+        fig, ax = plt.subplots(figsize=(8,4))
+        ax.bar(df['PARAMETER'], df['VALUE'], color='skyblue')
+        plt.xticks(rotation=45)
+        st.pyplot(fig)
