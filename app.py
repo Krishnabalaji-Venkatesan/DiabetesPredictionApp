@@ -54,20 +54,21 @@ label {{
     margin-bottom: 2px !important;
 }}
 
-/* Center Predict button */
+/* Center Predict button styled like white box */
 div.stButton {{
     display: flex;
     justify-content: center;
 }}
 div.stButton > button:first-child {{
-    background-color: #1F77B4;
-    color: white;
-    height: 60px;
-    width: 260px;
+    background-color: white;
+    color: #1F77B4;
+    height: 65px;
+    width: 300px;
     border-radius: 12px;
     font-size: 24px;
+    font-weight: bold;
     margin-top: 25px;
-    box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
 }}
 </style>
 """, unsafe_allow_html=True)
@@ -97,7 +98,7 @@ if st.button("PREDICT"):
     probability = model.predict_proba(input_data)[0][1]
     result = model.predict(input_data)[0]
 
-    # Centered probability message
+    # Centered probability message in styled boxes
     if result == 1:
         st.markdown(
             f"<div style='background-color:#ffcccc; padding:15px; border-radius:10px; text-align:center; font-size:20px; font-weight:bold; color:red;'>"
@@ -125,4 +126,3 @@ if st.button("PREDICT"):
     with col2:
         st.pyplot(fig)
 st.markdown("</div>", unsafe_allow_html=True)
-
