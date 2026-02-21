@@ -33,21 +33,30 @@ st.markdown(
         margin-bottom: 30px;
     }}
 
-    /* Transparent input boxes with shadow + black text */
+    /* Glassmorphism input boxes */
     input[type="number"] {{
-        background-color: rgba(255, 255, 255, 0.1); /* very transparent */
+        background: rgba(255, 255, 255, 0.05); /* super transparent */
+        backdrop-filter: blur(6px);             /* blur background behind box */
+        -webkit-backdrop-filter: blur(6px);
         color: black;
         font-size: 18px;
-        border-radius: 8px;
-        box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
-        padding: 6px;
-        border: none;
+        border-radius: 12px;
+        border: 1px solid rgba(255,255,255,0.3);
+        box-shadow: 2px 2px 10px rgba(0,0,0,0.25);
+        padding: 8px;
     }}
 
-    /* Remove dark shading from +/- controls */
+    /* Remove dark shading from +/- spinner controls */
     input[type=number]::-webkit-inner-spin-button,
     input[type=number]::-webkit-outer-spin-button {{
         -webkit-appearance: none;
+        background: transparent;
+        margin: 0;
+    }}
+    input[type=number]::-moz-inner-spin-button,
+    input[type=number]::-moz-outer-spin-button {{
+        appearance: none;
+        background: transparent;
         margin: 0;
     }}
 
