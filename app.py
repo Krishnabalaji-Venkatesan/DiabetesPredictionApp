@@ -10,7 +10,7 @@ st.set_page_config(page_title="DIABETES PREDICTION APP", layout="wide")
 
 background_url = "https://raw.githubusercontent.com/Krishnabalaji-Venkatesan/DiabetesPredictionApp/refs/heads/main/diabetes.jpg"
 
-# CSS for background, inputs, and spacing
+# CSS for background and Predict button
 st.markdown(f"""
 <style>
 .stApp {{
@@ -32,45 +32,46 @@ div.stButton > button:first-child {{
     margin-top: 25px;
     box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
 }}
-/* Black input boxes with white numbers */
 div[data-baseweb="input"] input {{
     background: #000000 !important;  
     color: white !important;
     font-size: 24px;
     border-radius: 12px !important;
     border: 1px solid rgba(255,255,255,0.7);
-    padding: 8px;
+    padding: 6px;
     font-weight: bold;
-    margin-top: 0px !important;
-    margin-bottom: 5px !important;
 }}
 </style>
 """, unsafe_allow_html=True)
 
-# Centered title
+# Title
 st.markdown('<h1 style="text-align:center; color:#1F77B4; font-weight:bold; font-size:48px;">DIABETES PREDICTION APPLICATION</h1>', unsafe_allow_html=True)
 
-# Function to create label + input together
-def number_input_box(label, **kwargs):
-    st.markdown(f'<p style="font-size:24px; font-weight:bold; color:black; margin-bottom:2px;">{label}</p>', unsafe_allow_html=True)
-    return st.number_input("", **kwargs)
+# Helper function to create label + input very close
+def number_input_near(label, key, min_value=0, format=None, step=None):
+    with st.container():
+        st.markdown(f'<p style="font-size:24px; font-weight:bold; color:black; margin-bottom:0px; line-height:1;">{label}</p>', unsafe_allow_html=True)
+        if format:
+            return st.number_input("", min_value=min_value, key=key, format=format)
+        else:
+            return st.number_input("", min_value=min_value, key=key, step=step)
 
 # Two columns
 col1, col2 = st.columns(2)
 
 with col1:
-    glucose = number_input_box("GLUCOSE LEVEL", min_value=0, key="glucose")
-    bp = number_input_box("BLOOD PRESSURE", min_value=0, key="bp")
-    bmi = number_input_box("BMI", min_value=0.0, key="bmi", format="%.2f")
-    age = number_input_box("AGE", min_value=0, key="age")
+    glucose = number_input_near("GLUCOSE LEVEL", "glucose")
+    bp = number_input_near("BLOOD PRESSURE", "bp")
+    bmi = number_input_near("BMI", "bmi", format="%.2f")
+    age = number_input_near("AGE", "age")
 
 with col2:
-    insulin = number_input_box("INSULIN LEVEL", min_value=0.0, key="insulin", format="%.2f")
-    skin_thickness = number_input_box("SKIN THICKNESS", min_value=0, key="skin")
-    dpf = number_input_box("DIABETES PEDIGREE FUNCTION", min_value=0.0, key="dpf", format="%.2f")
-    pregnancies = number_input_box("PREGNANCIES", min_value=0, key="pregnancies")
+    insulin = number_input_near("INSULIN LEVEL", "insulin", format="%.2f")
+    skin_thickness = number_input_near("SKIN THICKNESS", "skin")
+    dpf = number_input_near("DIABETES PEDIGREE FUNCTION", "dpf", format="%.2f")
+    pregnancies = number_input_near("PREGNANCIES", "pregnancies")
 
-# Centered predict button
+# Centered Predict button
 col1, col2, col3 = st.columns([1,2,1])
 with col2:
     if st.button("PREDICT"):
