@@ -15,7 +15,7 @@ st.markdown(
     <style>
     /* Background image */
     .stApp {
-        background-image: url("https://i.imgur.com/your_image_url.jpg");
+        background-image: url("https://diabetes.jpg");
         background-size: cover;
         background-attachment: fixed;
         opacity: 0.95;
@@ -91,3 +91,4 @@ with predict_col2:
         ax.bar(df['Parameter'], df['Value'], color='skyblue')
         plt.xticks(rotation=45)
         st.pyplot(fig)
+
