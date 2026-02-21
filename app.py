@@ -10,8 +10,7 @@ model = pickle.load(open("diabetes_model.pkl", "rb"))
 st.set_page_config(page_title="Diabetes Prediction App", layout="wide")
 
 # Background image and CSS
-background_url = "https://https://www.freepik.com/free-photo/top-view-glucose-measuring-device-diabetes_65609449.htm#fromView=search&page=1&position=37&uuid=a2a5ad31-db08-4433-96a0-b8f2bc1a840d&query=Diabetes+prediction+background.jpg"
-
+background_url = "https://github.com/Krishnabalaji-Venkatesan/DiabetesPredictionApp/blob/main/diabetes.jpg"
 st.markdown(
     f"""
     <style>
@@ -82,4 +81,5 @@ if st.button("Predict"):
     ax.bar(df['Parameter'], df['Value'], color='skyblue')
     plt.xticks(rotation=45)
     st.pyplot(fig)
+
 
