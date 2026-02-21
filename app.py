@@ -23,37 +23,37 @@ st.markdown(
         background-attachment: fixed;
     }}
 
-    /* Transparent warm white input boxes */
+    /* Fully white input boxes */
     div[data-baseweb="input"] input {{
-        background: rgba(255, 244, 229, 0.6) !important;  /* warm white with transparency */
+        background: #FFFFFF !important;  
         color: black !important;
-        font-size: 18px;
+        font-size: 20px;
         border-radius: 12px !important;
-        border: 1px solid rgba(255,255,255,0.7);
+        border: 1px solid rgba(200,200,200,0.8);
         padding: 8px;
     }}
 
-    /* Input labels */
+    /* Input labels bigger font */
     label {{
         color: black !important;
         font-weight: bold;
-        font-size: 18px;
+        font-size: 22px;
         text-transform: uppercase;
     }}
 
-    /* Spinner buttons (+/-) match input box */
+    /* Spinner buttons (+/-) match input box color */
     input::-webkit-inner-spin-button,
     input::-webkit-outer-spin-button {{
         -webkit-appearance: none;
         margin: 0;
-        background: rgba(255, 244, 229, 0.6);
+        background: #FFFFFF;
         color: black;
     }}
     input::-moz-inner-spin-button,
     input::-moz-outer-spin-button {{
         appearance: none;
         margin: 0;
-        background: rgba(255, 244, 229, 0.6);
+        background: #FFFFFF;
         color: black;
     }}
 
