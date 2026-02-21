@@ -3,7 +3,7 @@ import pickle
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Load trained model
+# Load model
 model = pickle.load(open("diabetes_model.pkl", "rb"))
 
 # Page configuration
@@ -12,9 +12,11 @@ st.set_page_config(page_title="Diabetes Prediction App", layout="wide")
 # Background image from GitHub
 background_url = "https://raw.githubusercontent.com/Krishnabalaji-Venkatesan/DiabetesPredictionApp/refs/heads/main/diabetes.jpg"
 
+# CSS Styling
 st.markdown(
     f"""
     <style>
+    /* Background image */
     .stApp {{
         background-image: url("{background_url}");
         background-size: cover;
@@ -27,13 +29,20 @@ st.markdown(
         color: #1F77B4;
         font-size: 42px;
         font-weight: bold;
+        margin-bottom: 20px;
     }}
 
-    /* Input box style */
-    .stNumberInput>div>input {{
-        background-color: rgba(255,255,255,0.85);
+    /* Input boxes transparent with black text */
+    .stNumberInput>div>div>input {{
+        background-color: rgba(255, 255, 255, 0.6);
         color: black;
         font-size: 16px;
+    }}
+
+    /* Input labels black */
+    label {{
+        color: black;
+        font-weight: bold;
     }}
 
     /* Center the Predict button */
@@ -47,16 +56,17 @@ st.markdown(
         display: block;
         margin-left: auto;
         margin-right: auto;
+        margin-top: 20px;
     }}
     </style>
     """,
     unsafe_allow_html=True
 )
 
-# App title in center
+# Centered Title
 st.markdown('<h1 class="stTitle">Diabetes Prediction Application</h1>', unsafe_allow_html=True)
 
-# Input columns
+# Two input columns
 col1, col2 = st.columns(2)
 
 with col1:
@@ -82,7 +92,7 @@ if st.button("Predict"):
     else:
         st.success(f"The person is Non-Diabetic. Probability: {(1-probability)*100:.2f}%")
 
-    # Bar chart of parameters
+    # Bar chart of input parameters
     param_names = ['Pregnancies','Glucose','BP','SkinThickness','Insulin','BMI','DPF','Age']
     param_values = [pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]
     df = pd.DataFrame({'Parameter': param_names, 'Value': param_values})
