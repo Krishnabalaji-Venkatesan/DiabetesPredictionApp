@@ -54,20 +54,21 @@ label {{
     margin-bottom: 2px !important;
 }}
 
-/* Center Predict button styled like white box */
+/* End-to-end Predict button inside blue box */
 div.stButton {{
     display: flex;
     justify-content: center;
 }}
 div.stButton > button:first-child {{
-    background-color: white;
-    color: #1F77B4;
-    height: 65px;
-    width: 300px;
+    background-color: white;   /* white button */
+    color: #1F77B4;            /* blue text */
+    height: 70px;
+    width: 100%;               /* full width */
     border-radius: 12px;
-    font-size: 24px;
+    font-size: 26px;
     font-weight: bold;
     margin-top: 25px;
+    border: 3px solid #1F77B4; /* blue border (box effect) */
     box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
 }}
 </style>
@@ -91,8 +92,7 @@ with col2:
     dpf = st.number_input("DIABETES PEDIGREE FUNCTION", min_value=0.0, format="%.2f")
     pregnancies = st.number_input("PREGNANCIES", min_value=0)
 
-# Predict button centered
-st.markdown("<div style='text-align:center;'>", unsafe_allow_html=True)
+# Predict button end-to-end
 if st.button("PREDICT"):
     input_data = [[pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]]
     probability = model.predict_proba(input_data)[0][1]
@@ -125,4 +125,3 @@ if st.button("PREDICT"):
     col1, col2, col3 = st.columns([1,2,1])
     with col2:
         st.pyplot(fig)
-st.markdown("</div>", unsafe_allow_html=True)
