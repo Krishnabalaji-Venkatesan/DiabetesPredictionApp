@@ -51,16 +51,12 @@ label {{
     text-transform: uppercase;
 }}
 
-/* Predict button styled like message box, full width */
-div.stButton {{
-    width: 100%;
-}}
+/* Predict button styled like message box */
 div.stButton > button:first-child {{
-    display: block;
     background-color: white;
     color: #1F77B4;
     height: 100px;             /* same height as message box */
-    width: 100%;               /* end-to-end */
+    width: 100%;               /* full width */
     border-radius: 12px;
     font-size: 28px;
     font-weight: bold;
@@ -87,8 +83,9 @@ with col2:
     dpf = st.number_input("DIABETES PEDIGREE FUNCTION", min_value=0.0, format="%.2f")
     pregnancies = st.number_input("PREGNANCIES", min_value=0)
 
-# Predict button
-if st.button("PREDICT"):
+# Center Predict button directly above result box
+st.markdown("<div style='text-align:center; width:100%;'>", unsafe_allow_html=True)
+if st.button("PREDICT", use_container_width=True):
     input_data = [[pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]]
     probability = model.predict_proba(input_data)[0][1]
     result = model.predict(input_data)[0]
@@ -113,13 +110,15 @@ if st.button("PREDICT"):
     param_values = [pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]
     df = pd.DataFrame({'PARAMETER': param_names, 'VALUE': param_values})
 
-    fig, ax = plt.subplots(figsize=(6,3))   # slightly bigger than before
+    fig, ax = plt.subplots(figsize=(6,3))   # slightly bigger tab-size
     ax.bar(df['PARAMETER'], df['VALUE'], color='skyblue')
     ax.set_xticklabels(df['PARAMETER'], rotation=30, ha='right', fontsize=8)  # reduced font size
-    ax.tick_params(axis='y', labelsize=8)  # smaller y-axis font
+    ax.tick_params(axis='y', labelsize=8)
     plt.tight_layout()
 
     # Center the graph
     colA, colB, colC = st.columns([1,2,1])
     with colB:
         st.pyplot(fig)
+st.markdown("</div>", unsafe_allow_html=True)
+
