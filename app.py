@@ -90,30 +90,31 @@ with col2:
     dpf = st.number_input("DIABETES PEDIGREE FUNCTION", min_value=0.0, format="%.2f")
     pregnancies = st.number_input("PREGNANCIES", min_value=0)
 
-# Predict button
-if st.button("PREDICT"):
-    input_data = [[pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]]
-    probability = model.predict_proba(input_data)[0][1]
-    result = model.predict(input_data)[0]
+# Centered Predict button
+colA, colB, colC = st.columns([1,2,1])
+with colB:
+    if st.button("PREDICT"):
+        input_data = [[pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]]
+        probability = model.predict_proba(input_data)[0][1]
+        result = model.predict(input_data)[0]
 
-    if result == 1:
-        st.error(f"THE PERSON IS DIABETIC. PROBABILITY: {probability*100:.2f}%")
-    else:
-        st.success(f"THE PERSON IS NON-DIABETIC. PROBABILITY: {(1-probability)*100:.2f}%")
+        # Centered probability message
+        if result == 1:
+            st.markdown(f"<h4 style='text-align:center; color:red;'>THE PERSON IS DIABETIC. PROBABILITY: {probability*100:.2f}%</h4>", unsafe_allow_html=True)
+        else:
+            st.markdown(f"<h4 style='text-align:center; color:green;'>THE PERSON IS NON-DIABETIC. PROBABILITY: {(1-probability)*100:.2f}%</h4>", unsafe_allow_html=True)
 
-    # Bar chart with reduced size and fixed text
-    param_names = ['PREGNANCIES','GLUCOSE','BP','SKIN THICKNESS','INSULIN','BMI','DPF','AGE']
-    param_values = [pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]
-    df = pd.DataFrame({'PARAMETER': param_names, 'VALUE': param_values})
+        # Bar chart with reduced size and centered
+        param_names = ['PREGNANCIES','GLUCOSE','BP','SKIN THICKNESS','INSULIN','BMI','DPF','AGE']
+        param_values = [pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]
+        df = pd.DataFrame({'PARAMETER': param_names, 'VALUE': param_values})
 
-    st.markdown("<h3 style='text-align:center; color:white;'>HEALTH PARAMETERS OVERVIEW</h3>", unsafe_allow_html=True)
-    fig, ax = plt.subplots(figsize=(3.5,2))   # small graph
-    ax.bar(df['PARAMETER'], df['VALUE'], color='skyblue')
-    ax.set_xticklabels(df['PARAMETER'], rotation=30, ha='right', fontsize=8)  # clean rotation
-    plt.tight_layout()
-    # Center the chart
-    col1, col2, col3 = st.columns([1,2,1])
-    with col2:
-        st.pyplot(fig)
-
+        st.markdown("<h3 style='text-align:center; color:white;'>HEALTH PARAMETERS OVERVIEW</h3>", unsafe_allow_html=True)
+        fig, ax = plt.subplots(figsize=(3.5,2))   # small graph
+        ax.bar(df['PARAMETER'], df['VALUE'], color='skyblue')
+        ax.set_xticklabels(df['PARAMETER'], rotation=30, ha='right', fontsize=8)
+        plt.tight_layout()
+        col1, col2, col3 = st.columns([1,2,1])
+        with col2:
+            st.pyplot(fig)
 
