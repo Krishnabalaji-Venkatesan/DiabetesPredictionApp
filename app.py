@@ -105,14 +105,18 @@ if st.button("PREDICT"):
             unsafe_allow_html=True
         )
 
-    # Tab-sized graph
+    # Tab-sized graph (small, centered)
     st.markdown("<h3 style='text-align:center; color:white;'>HEALTH PARAMETERS OVERVIEW</h3>", unsafe_allow_html=True)
     param_names = ['PREGNANCIES','GLUCOSE','BP','SKIN THICKNESS','INSULIN','BMI','DPF','AGE']
     param_values = [pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]
     df = pd.DataFrame({'PARAMETER': param_names, 'VALUE': param_values})
 
-    fig, ax = plt.subplots(figsize=(4,2))   # small tab-size graph
+    fig, ax = plt.subplots(figsize=(4,2))   # small iPad/tab size
     ax.bar(df['PARAMETER'], df['VALUE'], color='skyblue')
     ax.set_xticklabels(df['PARAMETER'], rotation=30, ha='right', fontsize=10)
     plt.tight_layout()
-    st.pyplot(fig)
+
+    # Center the graph
+    colA, colB, colC = st.columns([1,2,1])
+    with colB:
+        st.pyplot(fig)
