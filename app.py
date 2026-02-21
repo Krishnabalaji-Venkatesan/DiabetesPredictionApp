@@ -62,10 +62,10 @@ div.stButton {{
 div.stButton > button:first-child {{
     background-color: #1F77B4;
     color: white;
-    height: 55px;
-    width: 240px;
-    border-radius: 10px;
-    font-size: 22px;
+    height: 60px;
+    width: 260px;
+    border-radius: 12px;
+    font-size: 24px;
     margin-top: 25px;
     box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
 }}
@@ -91,31 +91,30 @@ with col2:
     pregnancies = st.number_input("PREGNANCIES", min_value=0)
 
 # Predict button centered
-colA, colB, colC = st.columns([1,2,1])
-with colB:
-    if st.button("PREDICT"):
-        input_data = [[pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]]
-        probability = model.predict_proba(input_data)[0][1]
-        result = model.predict(input_data)[0]
+st.markdown("<div style='text-align:center;'>", unsafe_allow_html=True)
+if st.button("PREDICT"):
+    input_data = [[pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]]
+    probability = model.predict_proba(input_data)[0][1]
+    result = model.predict(input_data)[0]
 
-        # Centered probability message
-        if result == 1:
-            st.markdown(f"<h4 style='text-align:center; color:red;'>THE PERSON IS DIABETIC. PROBABILITY: {probability*100:.2f}%</h4>", unsafe_allow_html=True)
-        else:
-            st.markdown(f"<h4 style='text-align:center; color:green;'>THE PERSON IS NON-DIABETIC. PROBABILITY: {(1-probability)*100:.2f}%</h4>", unsafe_allow_html=True)
+    # Centered probability message
+    if result == 1:
+        st.markdown(f"<h4 style='text-align:center; color:red;'>THE PERSON IS DIABETIC. PROBABILITY: {probability*100:.2f}%</h4>", unsafe_allow_html=True)
+    else:
+        st.markdown(f"<h4 style='text-align:center; color:green;'>THE PERSON IS NON-DIABETIC. PROBABILITY: {(1-probability)*100:.2f}%</h4>", unsafe_allow_html=True)
 
-        # Bigger bar chart, centered
-        param_names = ['PREGNANCIES','GLUCOSE','BP','SKIN THICKNESS','INSULIN','BMI','DPF','AGE']
-        param_values = [pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]
-        df = pd.DataFrame({'PARAMETER': param_names, 'VALUE': param_values})
+    # Bigger bar chart, centered
+    param_names = ['PREGNANCIES','GLUCOSE','BP','SKIN THICKNESS','INSULIN','BMI','DPF','AGE']
+    param_values = [pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]
+    df = pd.DataFrame({'PARAMETER': param_names, 'VALUE': param_values})
 
-        st.markdown("<h3 style='text-align:center; color:white;'>HEALTH PARAMETERS OVERVIEW</h3>", unsafe_allow_html=True)
-        fig, ax = plt.subplots(figsize=(6,4))   # bigger graph size
-        ax.bar(df['PARAMETER'], df['VALUE'], color='skyblue')
-        ax.set_xticklabels(df['PARAMETER'], rotation=30, ha='right', fontsize=10)
-        plt.tight_layout()
-        col1, col2, col3 = st.columns([1,2,1])
-        with col2:
-            st.pyplot(fig)
-
+    st.markdown("<h3 style='text-align:center; color:white;'>HEALTH PARAMETERS OVERVIEW</h3>", unsafe_allow_html=True)
+    fig, ax = plt.subplots(figsize=(12,6))   # much bigger graph (tab size)
+    ax.bar(df['PARAMETER'], df['VALUE'], color='skyblue')
+    ax.set_xticklabels(df['PARAMETER'], rotation=30, ha='right', fontsize=12)
+    plt.tight_layout()
+    col1, col2, col3 = st.columns([1,2,1])
+    with col2:
+        st.pyplot(fig)
+st.markdown("</div>", unsafe_allow_html=True)
 
