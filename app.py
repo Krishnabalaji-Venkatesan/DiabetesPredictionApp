@@ -23,20 +23,21 @@ st.markdown(
         background-attachment: fixed;
     }}
 
-    /* Fully white input boxes */
+    /* Black input boxes with white numbers */
     div[data-baseweb="input"] input {{
-        background: #FFFFFF !important;  
-        color: black !important;
+        background: #000000 !important;  
+        color: white !important;
         font-size: 20px;
         border-radius: 12px !important;
-        border: 1px solid rgba(200,200,200,0.8);
+        border: 1px solid rgba(255,255,255,0.7);
         padding: 8px;
+        font-weight: bold;
     }}
 
-    /* Input labels bigger font */
+    /* Input labels bigger and thick */
     label {{
         color: black !important;
-        font-weight: bold;
+        font-weight: 900;
         font-size: 22px;
         text-transform: uppercase;
     }}
@@ -46,15 +47,15 @@ st.markdown(
     input::-webkit-outer-spin-button {{
         -webkit-appearance: none;
         margin: 0;
-        background: #FFFFFF;
-        color: black;
+        background: #000000;
+        color: white;
     }}
     input::-moz-inner-spin-button,
     input::-moz-outer-spin-button {{
         appearance: none;
         margin: 0;
-        background: #FFFFFF;
-        color: black;
+        background: #000000;
+        color: white;
     }}
 
     /* Centered Predict button in blue */
@@ -78,7 +79,10 @@ st.markdown(
 )
 
 # Centered Title
-st.markdown('<h1 style="text-align:center; color:#1F77B4; font-weight:bold; font-size:48px; text-transform:uppercase;">DIABETES PREDICTION APPLICATION</h1>', unsafe_allow_html=True)
+st.markdown(
+    '<h1 style="text-align:center; color:#1F77B4; font-weight:bold; font-size:48px; text-transform:uppercase;">DIABETES PREDICTION APPLICATION</h1>',
+    unsafe_allow_html=True
+)
 
 # Input columns
 col1, col2 = st.columns(2)
