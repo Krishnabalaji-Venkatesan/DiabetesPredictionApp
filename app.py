@@ -101,16 +101,15 @@ if st.button("PREDICT"):
     else:
         st.success(f"THE PERSON IS NON-DIABETIC. PROBABILITY: {(1-probability)*100:.2f}%")
 
-    # Bar chart
+    # Bar chart with reduced size
     param_names = ['PREGNANCIES','GLUCOSE','BP','SKIN THICKNESS','INSULIN','BMI','DPF','AGE']
     param_values = [pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]
     df = pd.DataFrame({'PARAMETER': param_names, 'VALUE': param_values})
 
     st.subheader("HEALTH PARAMETERS OVERVIEW")
-    fig, ax = plt.subplots(figsize=(8,4))
+    fig, ax = plt.subplots(figsize=(5,3))   # smaller graph size
     ax.bar(df['PARAMETER'], df['VALUE'], color='skyblue')
     plt.xticks(rotation=45)
     st.pyplot(fig)
-
 
 
