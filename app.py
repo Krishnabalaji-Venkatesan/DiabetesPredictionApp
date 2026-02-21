@@ -107,15 +107,16 @@ if st.button("PREDICT"):
             unsafe_allow_html=True
         )
 
-    # Tab-sized graph (small, centered)
+    # Tab-sized graph (slightly bigger, smaller font, centered)
     st.markdown("<h3 style='text-align:center; color:white;'>HEALTH PARAMETERS OVERVIEW</h3>", unsafe_allow_html=True)
     param_names = ['PREGNANCIES','GLUCOSE','BP','SKIN THICKNESS','INSULIN','BMI','DPF','AGE']
     param_values = [pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]
     df = pd.DataFrame({'PARAMETER': param_names, 'VALUE': param_values})
 
-    fig, ax = plt.subplots(figsize=(4,2))   # compact iPad/tab size
+    fig, ax = plt.subplots(figsize=(6,3))   # slightly bigger than before
     ax.bar(df['PARAMETER'], df['VALUE'], color='skyblue')
-    ax.set_xticklabels(df['PARAMETER'], rotation=30, ha='right', fontsize=10)
+    ax.set_xticklabels(df['PARAMETER'], rotation=30, ha='right', fontsize=8)  # reduced font size
+    ax.tick_params(axis='y', labelsize=8)  # smaller y-axis font
     plt.tight_layout()
 
     # Center the graph
