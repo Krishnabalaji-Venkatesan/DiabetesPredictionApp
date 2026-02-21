@@ -83,8 +83,14 @@ with col2:
     dpf = st.number_input("DIABETES PEDIGREE FUNCTION", min_value=0.0, format="%.2f")
     pregnancies = st.number_input("PREGNANCIES", min_value=0)
 
-# Predict button (aligned with input boxes, spanning both columns)
-if st.button("PREDICT"):
+# Predict button spanning both columns (aligned with inputs)
+col_full = st.columns([1,1])
+with col_full[0]:
+    pass
+with col_full[1]:
+    pass
+
+if st.button("PREDICT", use_container_width=True):
     input_data = [[pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]]
     probability = model.predict_proba(input_data)[0][1]
     result = model.predict(input_data)[0]
