@@ -6,11 +6,12 @@ import matplotlib.pyplot as plt
 # Load trained model
 model = pickle.load(open("diabetes_model.pkl", "rb"))
 
-# Page config
+# Page configuration
 st.set_page_config(page_title="Diabetes Prediction App", layout="wide")
 
-# Background image and CSS
-background_url = "https://github.com/Krishnabalaji-Venkatesan/DiabetesPredictionApp/blob/main/diabetes.jpg"
+# Background image from GitHub
+background_url = "https://raw.githubusercontent.com/Krishnabalaji-Venkatesan/DiabetesPredictionApp/refs/heads/main/diabetes.jpg"
+
 st.markdown(
     f"""
     <style>
@@ -19,17 +20,23 @@ st.markdown(
         background-size: cover;
         background-attachment: fixed;
     }}
-    .css-10trblm {{
+
+    /* Center the title */
+    .stTitle {{
         text-align: center;
         color: #1F77B4;
         font-size: 42px;
         font-weight: bold;
     }}
+
+    /* Input box style */
     .stNumberInput>div>input {{
         background-color: rgba(255,255,255,0.85);
         color: black;
         font-size: 16px;
     }}
+
+    /* Center the Predict button */
     div.stButton > button:first-child {{
         background-color: #1F77B4;
         color: white;
@@ -46,8 +53,10 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-st.title("Diabetes Prediction Application")
+# App title in center
+st.markdown('<h1 class="stTitle">Diabetes Prediction Application</h1>', unsafe_allow_html=True)
 
+# Input columns
 col1, col2 = st.columns(2)
 
 with col1:
@@ -62,6 +71,7 @@ with col2:
     dpf = st.number_input("Diabetes Pedigree Function", min_value=0.0, format="%.2f")
     pregnancies = st.number_input("Pregnancies", min_value=0)
 
+# Centered Predict button
 if st.button("Predict"):
     input_data = [[pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]]
     probability = model.predict_proba(input_data)[0][1]
@@ -72,6 +82,7 @@ if st.button("Predict"):
     else:
         st.success(f"The person is Non-Diabetic. Probability: {(1-probability)*100:.2f}%")
 
+    # Bar chart of parameters
     param_names = ['Pregnancies','Glucose','BP','SkinThickness','Insulin','BMI','DPF','Age']
     param_values = [pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]
     df = pd.DataFrame({'Parameter': param_names, 'Value': param_values})
@@ -81,5 +92,3 @@ if st.button("Predict"):
     ax.bar(df['Parameter'], df['Value'], color='skyblue')
     plt.xticks(rotation=45)
     st.pyplot(fig)
-
-
