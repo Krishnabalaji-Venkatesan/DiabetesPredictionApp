@@ -6,8 +6,10 @@ import matplotlib.pyplot as plt
 # Load model
 model = pickle.load(open("diabetes_model.pkl", "rb"))
 
+# Page configuration
 st.set_page_config(page_title="DIABETES PREDICTION APP", layout="wide")
 
+# Background image
 background_url = "https://raw.githubusercontent.com/Krishnabalaji-Venkatesan/DiabetesPredictionApp/main/diabetes.jpg"
 
 # CSS Styling
@@ -91,17 +93,17 @@ if st.button("PREDICT"):
     probability = model.predict_proba(input_data)[0][1]
     result = model.predict(input_data)[0]
 
-    # Result box
+    # Result box with polished wording
     if result == 1:
         st.markdown(
             f"<div style='background-color:#ffcccc; padding:20px; border-radius:12px; text-align:center; font-size:22px; font-weight:bold; color:red;'>"
-            f"THE PERSON IS DIABETIC. PROBABILITY: {probability*100:.2f}%</div>",
+            f"Prediction: Diabetic (Confidence: {probability*100:.2f}%)</div>",
             unsafe_allow_html=True
         )
     else:
         st.markdown(
             f"<div style='background-color:white; padding:20px; border-radius:12px; text-align:center; font-size:22px; font-weight:bold; color:green;'>"
-            f"THE PERSON IS NON-DIABETIC. PROBABILITY: {(1-probability)*100:.2f}%</div>",
+            f"Prediction: Non‑Diabetic (Confidence: {(1-probability)*100:.2f}%)</div>",
             unsafe_allow_html=True
         )
 
@@ -111,7 +113,7 @@ if st.button("PREDICT"):
     param_values = [pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]
     df = pd.DataFrame({'PARAMETER': param_names, 'VALUE': param_values})
 
-    fig, ax = plt.subplots(figsize=(4,2))   # small iPad/tab size
+    fig, ax = plt.subplots(figsize=(4,2))   # compact iPad/tab size
     ax.bar(df['PARAMETER'], df['VALUE'], color='skyblue')
     ax.set_xticklabels(df['PARAMETER'], rotation=30, ha='right', fontsize=10)
     plt.tight_layout()
