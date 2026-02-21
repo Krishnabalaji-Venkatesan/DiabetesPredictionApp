@@ -10,7 +10,7 @@ st.set_page_config(page_title="DIABETES PREDICTION APP", layout="wide")
 
 background_url = "https://raw.githubusercontent.com/Krishnabalaji-Venkatesan/DiabetesPredictionApp/refs/heads/main/diabetes.jpg"
 
-# CSS for background, inputs, and Predict button
+# CSS Styling
 st.markdown(f"""
 <style>
 .stApp {{
@@ -19,10 +19,10 @@ st.markdown(f"""
     background-attachment: fixed;
 }}
 
-/* Title */
+/* Title styling */
 .stTitle {{
     text-align: center;
-    color: #1F77B4;
+    color: #1F77B4;   /* EXACT same blue as Predict button */
     font-weight: bold;
     font-size: 48px;
     text-transform: uppercase;
@@ -40,7 +40,7 @@ div[data-baseweb="input"] input {{
     border: 1px solid rgba(255,255,255,0.4);
     padding: 6px;
     font-weight: bold;
-    margin-top: 4px;   /* reduce gap between label and box */
+    margin-top: 4px;
 }}
 
 /* Labels */
@@ -49,7 +49,7 @@ label {{
     font-weight: bold;
     font-size: 18px;
     text-transform: uppercase;
-    margin-bottom: 2px !important; /* tighten spacing */
+    margin-bottom: 2px !important;
 }}
 
 /* Center Predict button */
@@ -88,7 +88,7 @@ with col2:
     dpf = st.number_input("DIABETES PEDIGREE FUNCTION", min_value=0.0, format="%.2f")
     pregnancies = st.number_input("PREGNANCIES", min_value=0)
 
-# Predict button centered
+# Predict button
 if st.button("PREDICT"):
     input_data = [[pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]]
     probability = model.predict_proba(input_data)[0][1]
