@@ -6,9 +6,11 @@ import matplotlib.pyplot as plt
 # Load model
 model = pickle.load(open("diabetes_model.pkl", "rb"))
 
+# Page configuration
 st.set_page_config(page_title="DIABETES PREDICTION APP", layout="wide")
 
-background_url = "https://github.com/Krishnabalaji-Venkatesan/DiabetesPredictionApp/blob/main/diabetes.jpg"
+# Background image from GitHub raw link
+background_url = "https://raw.githubusercontent.com/Krishnabalaji-Venkatesan/DiabetesPredictionApp/main/diabetes.jpg"
 
 # CSS Styling
 st.markdown(f"""
@@ -29,7 +31,7 @@ st.markdown(f"""
     margin-bottom: 30px;
 }}
 
-/* Input box styling */
+/* Input box styling with glass effect */
 div[data-baseweb="input"] input {{
     background: rgba(255,255,255,0.15);  /* transparent glass effect */
     backdrop-filter: blur(6px);
@@ -109,5 +111,6 @@ if st.button("PREDICT"):
     ax.bar(df['PARAMETER'], df['VALUE'], color='skyblue')
     plt.xticks(rotation=45)
     st.pyplot(fig)
+
 
 
