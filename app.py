@@ -49,7 +49,7 @@ label {{
     text-transform: uppercase;
 }}
 
-/* Predict button styled same as message box, full width */
+/* Predict button styled like message box, full width */
 div.stButton {{
     width: 100%;
 }}
@@ -57,7 +57,7 @@ div.stButton > button:first-child {{
     display: block;
     background-color: white;
     color: #1F77B4;
-    height: 100px;             /* big like message box */
+    height: 100px;             /* same height as message box */
     width: 100%;               /* end-to-end */
     border-radius: 12px;
     font-size: 28px;
@@ -111,7 +111,7 @@ if st.button("PREDICT"):
     param_values = [pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]
     df = pd.DataFrame({'PARAMETER': param_names, 'VALUE': param_values})
 
-    fig, ax = plt.subplots(figsize=(5,3))   # compact tab-size graph
+    fig, ax = plt.subplots(figsize=(4,2))   # small tab-size graph
     ax.bar(df['PARAMETER'], df['VALUE'], color='skyblue')
     ax.set_xticklabels(df['PARAMETER'], rotation=30, ha='right', fontsize=10)
     plt.tight_layout()
