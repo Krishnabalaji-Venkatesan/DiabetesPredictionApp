@@ -26,7 +26,7 @@ st.markdown(
     /* Title styling: bold + blue + uppercase */
     .stTitle {{
         text-align: center;
-        color: #1F77B4;   /* Same blue as Predict button */
+        color: #1F77B4;   /* EXACT same blue as Predict button */
         font-size: 48px;
         font-weight: bold;
         text-transform: uppercase;
@@ -35,8 +35,8 @@ st.markdown(
 
     /* Glassmorphism input boxes */
     input[type="number"] {{
-        background: rgba(255, 255, 255, 0.05); /* super transparent */
-        backdrop-filter: blur(6px);             /* blur background behind box */
+        background: rgba(255, 255, 255, 0.1); /* very transparent */
+        backdrop-filter: blur(6px);            /* blur background behind box */
         -webkit-backdrop-filter: blur(6px);
         color: black;
         font-size: 18px;
