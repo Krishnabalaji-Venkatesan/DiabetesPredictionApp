@@ -41,7 +41,7 @@ st.markdown(
 
     /* Input labels in black */
     label {{
-        color: black;
+        color: black !important;
         font-weight: bold;
     }}
 
