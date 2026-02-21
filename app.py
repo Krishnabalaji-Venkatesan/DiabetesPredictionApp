@@ -12,7 +12,7 @@ st.set_page_config(page_title="DIABETES PREDICTION APP", layout="wide")
 # Background image from GitHub
 background_url = "https://raw.githubusercontent.com/Krishnabalaji-Venkatesan/DiabetesPredictionApp/refs/heads/main/diabetes.jpg"
 
-# Apply CSS
+# CSS Styling
 st.markdown(
     f"""
     <style>
@@ -23,13 +23,13 @@ st.markdown(
         background-attachment: fixed;
     }}
 
-    /* Transparent input boxes (works in Streamlit 1.30+) */
+    /* Transparent warm white input boxes */
     div[data-baseweb="input"] input {{
-        background: rgba(255,255,255,0.05) !important;
+        background: rgba(255, 244, 229, 0.6) !important;  /* warm white with transparency */
         color: black !important;
         font-size: 18px;
         border-radius: 12px !important;
-        border: 1px solid rgba(255,255,255,0.3);
+        border: 1px solid rgba(255,255,255,0.7);
         padding: 8px;
     }}
 
@@ -41,20 +41,36 @@ st.markdown(
         text-transform: uppercase;
     }}
 
-    /* Remove spinner buttons background */
+    /* Spinner buttons (+/-) match input box */
     input::-webkit-inner-spin-button,
     input::-webkit-outer-spin-button {{
         -webkit-appearance: none;
         margin: 0;
-        background: rgba(255,255,255,0.05);
+        background: rgba(255, 244, 229, 0.6);
         color: black;
     }}
     input::-moz-inner-spin-button,
     input::-moz-outer-spin-button {{
         appearance: none;
         margin: 0;
-        background: rgba(255,255,255,0.05);
+        background: rgba(255, 244, 229, 0.6);
         color: black;
+    }}
+
+    /* Centered Predict button in blue */
+    div.stButton {{
+        display: flex;
+        justify-content: center;
+    }}
+    div.stButton > button:first-child {{
+        background-color: #1F77B4;  /* Blue color */
+        color: white;
+        height: 55px;
+        width: 240px;
+        border-radius: 10px;
+        font-size: 22px;
+        margin-top: 25px;
+        box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
     }}
     </style>
     """,
@@ -79,7 +95,7 @@ with col2:
     dpf = st.number_input("DIABETES PEDIGREE FUNCTION", min_value=0.0, format="%.2f")
     pregnancies = st.number_input("PREGNANCIES", min_value=0)
 
-# Center Predict button using columns
+# Centered Predict button using columns
 predict_col1, predict_col2, predict_col3 = st.columns([1,2,1])
 with predict_col2:
     if st.button("PREDICT"):
