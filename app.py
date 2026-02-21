@@ -24,7 +24,7 @@ st.markdown(f"""
 /* Title styling */
 .stTitle {{
     text-align: center;
-    color: #1F77B4;   /* EXACT same blue as Predict button */
+    color: #1F77B4;
     font-weight: bold;
     font-size: 48px;
     text-transform: uppercase;
@@ -33,10 +33,10 @@ st.markdown(f"""
 
 /* Input box styling with glass effect */
 div[data-baseweb="input"] input {{
-    background: rgba(255,255,255,0.15);  /* transparent glass effect */
+    background: rgba(255,255,255,0.15);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
-    color: white !important;   /* numbers in white */
+    color: white !important;
     font-size: 20px;
     border-radius: 10px;
     border: 1px solid rgba(255,255,255,0.4);
@@ -47,7 +47,7 @@ div[data-baseweb="input"] input {{
 
 /* Labels */
 label {{
-    color: white !important;   /* labels in white */
+    color: white !important;
     font-weight: bold;
     font-size: 18px;
     text-transform: uppercase;
@@ -101,15 +101,16 @@ if st.button("PREDICT"):
     else:
         st.success(f"THE PERSON IS NON-DIABETIC. PROBABILITY: {(1-probability)*100:.2f}%")
 
-    # Bar chart with reduced size and centered
+    # Bar chart with reduced size and fixed text
     param_names = ['PREGNANCIES','GLUCOSE','BP','SKIN THICKNESS','INSULIN','BMI','DPF','AGE']
     param_values = [pregnancies, glucose, bp, skin_thickness, insulin, bmi, dpf, age]
     df = pd.DataFrame({'PARAMETER': param_names, 'VALUE': param_values})
 
     st.markdown("<h3 style='text-align:center; color:white;'>HEALTH PARAMETERS OVERVIEW</h3>", unsafe_allow_html=True)
-    fig, ax = plt.subplots(figsize=(3,2))   # smaller graph size
+    fig, ax = plt.subplots(figsize=(3.5,2))   # small graph
     ax.bar(df['PARAMETER'], df['VALUE'], color='skyblue')
-    plt.xticks(rotation=45)
+    ax.set_xticklabels(df['PARAMETER'], rotation=30, ha='right', fontsize=8)  # clean rotation
+    plt.tight_layout()
     # Center the chart
     col1, col2, col3 = st.columns([1,2,1])
     with col2:
