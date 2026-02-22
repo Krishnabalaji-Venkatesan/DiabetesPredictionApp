@@ -81,8 +81,7 @@ Libraries:
 
 Deployment Platform: Streamlit Cloud  
 
-Live Application:
-(Add your deployment link here)
+Live Application:https://diabetespredictionapp-2dbvb9nuhvym7k735zxb5r.streamlit.app/
 
 ---
 
